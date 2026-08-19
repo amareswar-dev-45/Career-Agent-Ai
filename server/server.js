@@ -64,7 +64,7 @@ app.use((err, req, res, next) => {
   console.error(`[Server Error ${req.method} ${req.url}]:`);
   console.error(`User ID: ${req.user ? req.user._id : 'Unauthenticated'}`);
   console.error(`Error Stack:`, err.stack || err.message);
-  
+
   const status = err.status || 500;
   const isDev = process.env.NODE_ENV !== 'production';
 
@@ -75,11 +75,18 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start Server & DB connection
-connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`=================================`);
-    console.log(`🚀 CareerAI Server running on port ${PORT}`);
-    console.log(`=================================`);
+// Start Server & DB connection (Standalone Node.js environment)
+if (process.env.NODE_ENV !== 'test' && !process.env.VERCEL) {
+  connectDB().then(() => {
+    app.listen(PORT, () => {
+      console.log(`=================================`);
+      console.log(`🚀 CareerAI Server running on port ${PORT}`);
+      console.log(`=================================`);
+    });
   });
-});
+} else {
+  // Auto-connect DB in serverless environment
+  connectDB();
+}
+
+export default app;
