@@ -155,7 +155,7 @@ export const ATSChecker = () => {
               <Card className="text-center space-y-3 relative overflow-hidden">
                 {report.usedDemo && (
                   <span className="absolute top-3 right-3 bg-amber-100 text-amber-800 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border border-amber-300">
-                    DEMO SCORE
+
                   </span>
                 )}
                 <div className="w-14 h-14 bg-[#e6eeff] text-[#4648d4] rounded-2xl flex items-center justify-center mx-auto shadow-sm">
